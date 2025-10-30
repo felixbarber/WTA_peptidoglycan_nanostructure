@@ -13,7 +13,7 @@ The general workflow follows using FIJI scripts (*.ijm) to import and build imag
 
 Examples of script use by figure:
 
--Fig. 1B, S2A,B,C,D:
+- Fig. 1B, S2A,B,C,D:
 Image_process_updated.ijm
 Alignment_updated.ijm
 Imagealign_felix.m
@@ -26,7 +26,7 @@ Timelapse_compile_data.py
 Timelapse_compiled_data_plots.py
 
 
--Fig. S1A (EDA-DA labeling):
+- Fig. S1A (EDA-DA labeling):
 Timepoint_imaging_v1.ijm
 Timepoint_blur_background_automated_repeat.m
 Timepoint_segmentation.m
@@ -37,7 +37,7 @@ ________
 Run the steps above for each individual experiment. Then run the step(s) below to compile data across multiple experiments:
 EDADA_plotting_paper.py 
 
--Fig. S2E, F (Pad growth):
+- Fig. S2E, F (Pad growth):
 Image_process_updated.ijm
 Alignment_updated.ijm
 Imagealign_felix_pad.m
@@ -48,7 +48,7 @@ Run the steps above for each individual experiment. Then run the step(s) below t
 Timelapse_compile_data.py
 Timelapse_compiled_data_plots.py
 
--Fig. 1E, S4A (Timepoint imaging):
+- Fig. 1E, S4A (Timepoint imaging):
 timepoint_imaging_scenes_single_file.ijm (Fiji)
 timepoint_blur_background_automated_repeat.m
 timepoint_segmentation.m
@@ -58,5 +58,11 @@ ________
 Run the steps above for each individual experiment. Then run the step(s) below to compile data across multiple experiments:
 cell_staining_timepoint_compilation_paper.py
 
-Fig. 1C (MreB tracking).
+- MreB tracking (Figs. 1C, 2F etc.):
+tirf_processing.ijm
 Mreb_tracking_v3_py3.py
+Mreb_consolidate_timepoints.py (needed to combine finer time-resolution points into coarser timepoints for some experiments)
+________
+Run the steps above for each individual experiment. Then run the step(s) below to compile data across multiple experiments:
+Mreb_plotting_compilation_v2_py3.py
+
