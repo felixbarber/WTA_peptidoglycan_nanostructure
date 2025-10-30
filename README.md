@@ -11,9 +11,9 @@ Pandas 1.5.3
 
 The general workflow follows using FIJI scripts (*.ijm) to import and build image file structures, using MatLab to segment and track phase contrast images either for single-timepoint staining or timelapse tracking, then using Python for fluorescent quantification, single molecule tracking and plotting.
 
-Examples of script use by figure:
+Examples of script workflows for different applications:
 
-- Fig. 1B, S2A,B,C,D:
+- Single-cell growth rate and width tracking (e.g. Figs. 1B, S2A,B,C,D):
 Image_process_updated.ijm
 Alignment_updated.ijm
 Imagealign_felix.m
@@ -26,7 +26,7 @@ Timelapse_compile_data.py
 Timelapse_compiled_data_plots.py
 
 
-- Fig. S1A (EDA-DA labeling):
+- EDA-DA labeling (Fig. S1A):
 Timepoint_imaging_v1.ijm
 Timepoint_blur_background_automated_repeat.m
 Timepoint_segmentation.m
@@ -37,7 +37,7 @@ ________
 Run the steps above for each individual experiment. Then run the step(s) below to compile data across multiple experiments:
 EDADA_plotting_paper.py 
 
-- Fig. S2E, F (Pad growth):
+- Single-cell growth rate and width tracking on pads (Figs. S2E, F):
 Image_process_updated.ijm
 Alignment_updated.ijm
 Imagealign_felix_pad.m
@@ -48,7 +48,7 @@ Run the steps above for each individual experiment. Then run the step(s) below t
 Timelapse_compile_data.py
 Timelapse_compiled_data_plots.py
 
-- Fig. 1E, S4A (Timepoint imaging):
+- Timepoint staining imaging (Figs. 1E, S5A):
 timepoint_imaging_scenes_single_file.ijm (Fiji)
 timepoint_blur_background_automated_repeat.m
 timepoint_segmentation.m
@@ -58,11 +58,27 @@ ________
 Run the steps above for each individual experiment. Then run the step(s) below to compile data across multiple experiments:
 cell_staining_timepoint_compilation_paper.py
 
-- MreB tracking (Figs. 1C, 2F etc.):
+- MreB tracking (Figs. 1C, 2F, S3, S9 etc.):
 tirf_processing.ijm
 Mreb_tracking_v3_py3.py
 Mreb_consolidate_timepoints.py (needed to combine finer time-resolution points into coarser timepoints for some experiments)
 ________
 Run the steps above for each individual experiment. Then run the step(s) below to compile data across multiple experiments:
 Mreb_plotting_compilation_v2_py3.py
+
+- Single Molecule Tracking (Figs. 2D, S6C)
+tirf_processing.ijm
+single_molecule_tracking_v1.py
+pbp1_tracking_compilation.ipynb
+
+- Bulk growth curve data
+growth_curves_reordering.py
+
+- Lysis microscopy data
+lysis_annotation_lysed_cells_updated.ijm
+lysis_annotation_plain_cells_updated.ijm
+lysis_timelapses.py
+
+- PBP1-HADA colocalization
+FDAA_PBP1_cross_correlation.ipynb
 
