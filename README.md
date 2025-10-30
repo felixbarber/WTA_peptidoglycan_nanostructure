@@ -15,8 +15,7 @@ Examples of script use by figure:
 
 -
 
-Fig. 1B, S2A,B,C,D
-________
+Fig. 1B, S2A,B,C,D:
 Image_process_updated.ijm
 Alignment_updated.ijm
 Imagealign_felix.m
@@ -29,8 +28,7 @@ Timelapse_compile_data.py
 Timelapse_compiled_data_plots.py
 
 
-Fig. S1A (EDA-DA labeling).
-________
+Fig. S1A (EDA-DA labeling):
 Timepoint_imaging_v1.ijm
 Timepoint_blur_background_automated_repeat.m
 Timepoint_segmentation.m
@@ -41,8 +39,7 @@ ________
 Run the steps above for each individual experiment. Then run the step(s) below to compile data across multiple experiments:
 EDADA_plotting_paper.py 
 
-Fig. S2E, F (Pad growth).
-________
+Fig. S2E, F (Pad growth):
 Image_process_updated.ijm
 Alignment_updated.ijm
 Imagealign_felix_pad.m
@@ -53,7 +50,7 @@ Run the steps above for each individual experiment. Then run the step(s) below t
 Timelapse_compile_data.py
 Timelapse_compiled_data_plots.py
 
-Fig. 1E, S4A (Timepoint imaging).
+Fig. 1E, S4A (Timepoint imaging):
 timepoint_imaging_scenes_single_file.ijm (Fiji)
 timepoint_blur_background_automated_repeat.m
 timepoint_segmentation.m
