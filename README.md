@@ -70,15 +70,15 @@ Mreb_plotting_compilation_v2_py3.py
 tirf_processing.ijm
 single_molecule_tracking_v1.py
 pbp1_tracking_compilation.ipynb
-
+________
 - Bulk growth curve data
 growth_curves_reordering.py
-
+________
 - Lysis microscopy data
 lysis_annotation_lysed_cells_updated.ijm
 lysis_annotation_plain_cells_updated.ijm
 lysis_timelapses.py
-
+________
 - PBP1-HADA colocalization
 FDAA_PBP1_cross_correlation.ipynb
 
