@@ -13,7 +13,7 @@ The general workflow follows using FIJI scripts (*.ijm) to import and build imag
 
 Examples of script workflows for different applications:
 
-- Single-cell growth rate and width tracking (e.g. Figs. 1B, S2A,B,C,D):
+-- Single-cell growth rate and width tracking (e.g. Figs. 1B, S2A,B,C,D):
 Image_process_updated.ijm
 Alignment_updated.ijm
 Imagealign_felix.m
