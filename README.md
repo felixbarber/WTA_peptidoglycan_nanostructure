@@ -13,17 +13,17 @@ The general workflow follows using FIJI scripts (*.ijm) to import and build imag
 
 Examples of script workflows for different applications:
 
--- Single-cell growth rate and width tracking (e.g. Figs. 1B, S2A,B,C,D):
-Image_process_updated.ijm
-Alignment_updated.ijm
-Imagealign_felix.m
-Eraseimagepart_felix_updated_blurry.m
-Bactrack_felix_tester.m
-Timelapse_growth_rate_script_truncated_time.py
+## Single-cell growth rate and width tracking (e.g. Figs. 1B, S2A,B,C,D):
+-Image_process_updated.ijm
+-Alignment_updated.ijm
+-Imagealign_felix.m
+-Eraseimagepart_felix_updated_blurry.m
+-Bactrack_felix_tester.m
+-Timelapse_growth_rate_script_truncated_time.py
 ________
 Run the steps above for each individual experiment. Then run the step(s) below to compile data across multiple experiments:
-Timelapse_compile_data.py
-Timelapse_compiled_data_plots.py
+-Timelapse_compile_data.py
+-Timelapse_compiled_data_plots.py
 
 
 - EDA-DA labeling (Fig. S1A):
