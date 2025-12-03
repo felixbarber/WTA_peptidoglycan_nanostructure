@@ -8,6 +8,7 @@ Scipy 1.10.1
 Scikit-learn 1.2.2
 Scikit-image 0.20.0
 Pandas 1.5.3
+Seaborn 0.13.2
 
 The general workflow uses FIJI scripts (*.ijm) to import and build image file structures, uses MatLab to segment and track phase contrast images either for single-timepoint staining or timelapse tracking, and applies Python scripts for fluorescent quantification, single molecule tracking and plotting.
 
