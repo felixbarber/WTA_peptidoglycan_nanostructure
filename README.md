@@ -74,7 +74,8 @@ Examples of script workflows for different applications:
 ## Lysis microscopy data
 - lysis_annotation_lysed_cells_updated.ijm
 - lysis_annotation_plain_cells_updated.ijm
-- lysis_timelapses.py
+- cell_lysis_timelapse_compiled.py
+- lysis_stat_tests.ipynb (to calculate statistical significance)
 
 ## PBP1-HADA colocalization
 - FDAA_PBP1_cross_correlation.ipynb
