@@ -19,15 +19,6 @@ import csv
 sns.set(font_scale=1.5)
 sns.set_style("white")
 
-# expts = [["/230323_bFB66_Tun_lysis","/230323_bFB66_Tun_lysis"],["/230321_bFB7_Tun_lysis"], ["/230327_bFB8_Tun_lysis"]]
-# scene_nums = [[6],[7], [6]]
-# len_times = [[26],[28], [38]]
-# tperts = [[5.0],[5.0], [5.0]]
-# starting_points = [[np.array([11, 11, 9, 11, 12, 11])], [np.array([14,13,12,1,8,4,16])], [np.array([11,11,9,13,13,13])]]
-# strain_id = ['WT', r'$\Delta cwlO$', r'$\Delta lytE$']
-# tstep = 5.0
-# out_name='lytE_single_ko'
-# pos=[0.1,0.4]
 
 expts = [["/230323_bFB66_Tun_lysis", "/250626_bFB66_tun_lysis"],["/230317_bFB69_Tun_Lysis", "/230322_bFB69_Tun_lysis", "/240729_bFB69_Tun_lysis"]]
 scene_nums = [[6,3],[3, 6, 3]]
@@ -39,42 +30,7 @@ tstep = 5.0
 out_name='ponA_lim'
 pos=[0.1,0.6]
 
-# expts = [["/230323_bFB66_Tun_lysis"],["/230317_bFB69_Tun_Lysis", "/230322_bFB69_Tun_lysis", "/240729_bFB69_Tun_lysis"]]
-# scene_nums = [[6],[3, 6, 3]]
-# len_times = [[26],[19, 26, 26]]
-# tperts = [[5.0],[5.0]]
-# starting_points = [[np.array([11, 11, 9, 11, 12, 11])],[np.array([2,6,1]), np.array([6,3,2,1,1,1]), np.array([1,1,1])]]
-# strain_id = ['WT', r'$\Delta ponA$']
-# tstep = 5.0
-# out_name='ponA_compiled'
-# pos=[0.1,0.6]
-
-# expt_ids = ["/230323_bFB66_Tun_lysis", "/230321_bFB7_Tun_lysis", "/230327_bFB8_Tun_lysis", "/230322_bFB69_Tun_lysis",
-#             "/230926_bFB87_Tun_lysis", "/231006_bFB93_Tun_lysis"]
-# scene_nums = [6, 7, 6, 6, 5, 6]
-# len_times = [26, 28, 38, 26, 26, 26]
-# tperts = [5.0, 5.0, 5.0, 5.0, 5.0, 5.0]
-# starting_points = [np.array([11, 11, 9, 11, 12, 11]), np.array([14,13,12,1,8,4,16]), np.array([11,11,9,13,13,13]),
-#                    np.array([6,3,2,1,1,1]), np.array([9,11,3,9,10]), np.array([11,13,15,13,12,14])]
-
-# strain_id = ['WT', r'$\Delta cwlO$', r'$\Delta lytE$', r'$\Delta ponA$',
-#              r'$\Delta ponA$ $\Delta cwlO$' , r'$\Delta ponA$ $\Delta lytE$']
-# expts = [["/230323_bFB66_Tun_lysis", "/250626_bFB66_tun_lysis"],["/230317_bFB69_Tun_Lysis", "/230322_bFB69_Tun_lysis", "/240729_bFB69_Tun_lysis"],
-#          ["/230321_bFB7_Tun_lysis"], ["/230327_bFB8_Tun_lysis"], ["/230926_bFB87_Tun_lysis"], ["/231006_bFB93_Tun_lysis"]]
-# scene_nums = [[6,3],[3, 6, 3], [7], [6], [5],[6]]
-# len_times = [[26,26],[19, 26, 26],[28],[38],[26],[26]]
-# tperts = [[5.0],[5.0],[5.0],[5.0],[5.0],[5.0]]
-# starting_points = [[np.array([11, 11, 9, 11, 12, 11]), np.array([6,10,6])],[np.array([2,6,1]), np.array([6,3,2,1,1,1]), np.array([1,1,1])],
-#                    [np.array([14,13,12,1,8,4,16])],[np.array([11,11,9,13,13,13])],[np.array([9,11,3,9,10])],
-#                    [np.array([11,13,15,13,12,14])]]
-# strain_id = ['WT', r'$\Delta ponA$',r'$\Delta cwlO$', r'$\Delta lytE$',r'$\Delta ponA$ $\Delta cwlO$' , r'$\Delta ponA$ $\Delta lytE$']
-# tstep = 5.0
-# out_name='ponA_lytE_cwlO_compiled'
-# pos=[0.1,0.6]
-
-# path = '/Users/felixbarber/Documents/Rojas_Lab/data'
 path = '/Volumes/data_ssd1/Rojas_Lab/data'
-# out_path = '/Users/felixbarber/Documents/GitHub/Rojas_lab_drafts/outputs'
 out_path = '/Users/barber.527/Documents/GitHub/Rojas_lab_drafts/outputs'
 
 total_cells = []
