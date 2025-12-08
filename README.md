@@ -77,5 +77,6 @@ Examples of script workflows for different applications:
 - cell_lysis_timelapse_compiled.py
 - lysis_stat_tests.ipynb (to calculate statistical significance)
 
+## Permeability assay — see dedicated ReadMe file.
 ## PBP1-HADA colocalization
 - FDAA_PBP1_cross_correlation.ipynb
