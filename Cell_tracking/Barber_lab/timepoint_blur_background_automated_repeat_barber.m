@@ -1,25 +1,27 @@
-%blur_background.m
-%Felix Barber, 9/8/25
-%This routine lets the user select ROIs within the image to be blurred,
+
+% User Guide: Written by Felix Barber, 2/27/26
+
+% This script is used to process "timepoint" datasets, where within a
+% single experiment you acquire distinct fields of view (usually for different 
+% conditions). This is NOT to be used on timelapse imaging, where you track
+% the same field of view over long times.
+
+%The user selects ROIs (regions of interest) within the image to be blurred,
 %guided by visual aides for the cell segmentation. If you click "enter"
 %without making any selections, it will not overwrite a given output if one
 %exists. For future development could consider dilating a binary image of
 %cell masks and blurring everything else in addition to the points of
 %selection.
-%INSTRUCTIONS FOR USE:
-%Save the image stack in a directory without any other .tif files in it.  When 
-%you run the program, the final image in the image stack will open.  
-%Select the regions you want to delete with the cursor and then press Enter.  
-%The program writes over the original image stack, so if you want a backup stack, 
-%save it in a separate location.
 
-
-
-%INPUT:
-%dirname:Directory in which the image stack is saved.
+%INPUTs:
+%temp_path: Directory in which the experimental datasets are saved
+% basename1: Experiment ID (the name of your folder for that experiment)
+% cond: The individual experimental condition (iterate through each individual 
+% subfolder within your experiment).
 
 %Calls upon:
-%norm16bit.m
+%norm16bit.m This cannot be run without adding the Cell_Tracking directory 
+% to the path.
 
 clear
 close all
@@ -29,175 +31,21 @@ tic
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %USER INPUT
 
-% temp_path='/Users/felixbarber/Documents/Rojas_lab/data/'
-% temp_path='/Volumes/data_ssd1/Rojas_Lab/data/'
-temp_path='/Volumes/data_ssd2/Rojas_Lab/data/'
+% These variables are usually "set and forget"
+erase_pillars=0;  % Set this to 1 if you need to remove regularly spaced
+% pillars within your image. Set to zero otherwise.
+temp_path='/Users/barber.527/Documents/Rojas_Lab/data/' % Adjust this path
+% to where you have saved your experiment data folders.
+imscale = 100; % set this to be smaller if you are only seeing part of your 
+% image
 
 
+% These variables need to be changed for each new experiment
+basename1="/260211_WT_pulse_chase";
+cond="sample_4";
+date="260211";
 
-basename1="/221012_bFB69_Tun_gr_HADA";
-cond="120min";
-erase_pillars=0;
-
-% basename1="/220309_bFB69_Tun_gr_HADA";
-% cond="60min";
-% erase_pillars=0;
-
-% basename1="/221214_bFB7_HADA_Tun";
-% % cond="LB";
-% % cond="0min";
-% % cond="5min";
-% cond="10min";
-% erase_pillars=0;
-
-
-% basename1="/220120_bFB7_HADA_Tun";
-% % cond="LB";
-% % cond="5min";
-% % cond="10min";
-% cond="15min";
-% erase_pillars=0;
-
-% basename1="/240202_bFB205_Tun_HADA";
-% % cond="LB";
-% % cond="5min";
-% cond="15min";
-% erase_pillars=0;
-
-% basename1="/240131_bFB205_Tun_HADA";
-% cond="LB";
-% % cond="0min";
-% % cond="5min";
-% % cond="10min";
-% erase_pillars=0;
-
-% basename1="220111_bFB79_HADA_Tun";
-% % cond="LB";
-% % cond="0min";
-% cond="5min";
-% % cond="10min";
-% erase_pillars=0;
-
-% basename1="220104_bFB79_Tun_HADA";
-% % cond="LB";
-% % cond="0min";
-% % cond="5min";
-% cond="10min";
-% erase_pillars=0;
-
-% basename1="220113_bFB79_HADA_Tun";
-% cond="LB";
-% % cond="15min";
-% % cond="5min";
-% % cond="10min";
-% erase_pillars=0;
-
-% basename1="/241113_bFB69_Tun_HADA";
-% % cond="LB";
-% cond="0min";
-% % cond="5min";
-% % cond="10min";
-% erase_pillars=0;
-
-% basename1="240202_bFB69_Tun_HADA";
-% cond="LB";
-% % cond="15min";
-% % cond="5min";
-% % cond="25min";
-% erase_pillars=0;
-
-% basename1="220207_bFB69_Tun_HADA";
-% % cond="LB";
-% % cond="15min";
-% % cond="5min";
-% cond="10min";
-% erase_pillars=0;
-
-% 
-% basename1="/240126_bFB66_Tun_HADA";
-% % cond="LB";
-% % cond="0min";
-% cond="5min";
-% % cond="10min";
-% erase_pillars=0;
-
-% basename1= '210416_FB2_HADA_Staining';
-% % cond='LB';
-% % cond='5min';
-% % cond='10min';
-% % cond='15min';
-% % cond='25min';
-% cond='5min_v2';
-% erase_pillars=0;
-
-% basename1="220104_bFB66_Tun_HADA";
-% % cond="LB";
-% % cond="0min";
-% % cond="5min";
-% cond="10min";
-% erase_pillars=0;
-
-% basename1= '210506_FB6_inducer_loss';
-% cond='10min';
-% % cond='25min';
-% % cond='60min';
-% % cond='Xylose_induced';
-% erase_pillars=0;
-
-% basename1="/250616_bFB6_xylose_depletion_HADA";
-% % cond="0min";
-% % cond="15min";
-% % cond="30min";
-% cond="60min";
-% erase_pillars=0;
-
-% basename1="/250613_bFB66_EDADA_tun_full";
-% % cond="unstained";
-% % cond="LB";
-% % cond="tun";
-% % cond="fos";
-% cond="tun_van";
-% % cond="LB_van";
-% erase_pillars=0;
-
-% basename1="/250613_bFB66_EDADA_tun_full_rep2";
-% cond="LB";
-% cond="tun";
-% cond="fos";
-% cond="tun_van";
-% cond="LB_van";
-% cond="unstained";
-% erase_pillars=0;
-
-% basename1="/250616_bFB66_EDADA";
-% cond="LB";
-% cond="Tun";
-% cond="fos";
-% cond="tun_van";
-% cond="van";
-% cond="untreated";
-% erase_pillars=0;
-
-% basename1="/250612_bFB66_EDADA_tun_full";
-% % cond="LB";
-% % cond="tun_hi";
-% % cond="fos";
-% % cond="untreated";
-% cond="van";
-% erase_pillars=0;
-
-% basename1="/250610_bFB66_tun_EDADA";
-% cond="LB_1";
-% cond="LB_2";
-% cond="tun_1";
-% cond="tun_2";
-% cond="tun_2_PI_day2";
-% cond="tun_1_PI_day2";
-% cond="LB_1_PI_day2";
-% cond="LB_2_PI_day2";
-% erase_pillars=0;
-
-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 dirname=strcat(temp_path, basename1, '/', cond, '/C1');%Directory that the image stack is saved in.
 out_dir=strcat(temp_path, basename1, '/', cond, '/C1_blur');
 
@@ -205,7 +53,8 @@ out_dir=strcat(temp_path, basename1, '/', cond, '/C1_blur');
 if ~exist(out_dir, 'dir')
    mkdir(out_dir)
 end
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
 curdir=cd;
 
 cd(dirname);
@@ -230,7 +79,8 @@ for t=1:L
         %%%%%%%%%%%%%%%%%%%%%%%% Doing the segmentation on this image,
         % minimally modified from Rico's segmentation code.
         
-        lscale=0.0929;%%Microns per pixel.
+        lscale=0.065;%%Microns per pixel. Set to 0.0929 for Rojas Lab,
+        % 0.065 for Barber Lab camera at 100X mag.
         tscale=20;%Frame rate.
         thresh=0;%For default, enter zero.
         IntThresh=10000;%Threshold used to enhance contrast. Default:35000
@@ -451,7 +301,7 @@ for t=1:L
         ppix=0.5;
         im2=norm16bit(im1,ppix);
     
-        figure,imshow(im1,stretchlim(im1)*65000)
+        figure,imshow(im1,stretchlim(im1)*65000, 'InitialMagnification', imscale)
         set(gcf,'Pointer','fullcross')
         hold on
         for k=1:length(row)
@@ -599,6 +449,279 @@ for t=1:L
         repnum=repnum+1;
     end
 end
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Now, we apply the same calculations to perform the actual segmentation.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+dirname=strcat(temp_path, basename1, '/', cond, '/C1_blur');%Directory that the image stack is saved in.
+
+%Determine number of frames
+curdir=cd;
+cd(dirname);
+directory=dir(date+'*.tif');
+T=length(directory);
+
+path(dirname,path)
+
+nc=zeros(1,T);
+allcentroids=[];
+cellnum=[];
+tstamp=[];
+
+%Pre-allocate matrices
+wav=zeros(1,T);
+wstd=zeros(1,T);
+wste=zeros(1,T);
+acell=zeros(1,T);
+wcell=zeros(1,T);
+sacell=zeros(1,T);
+lcell=zeros(1,T);
+DS=zeros(1,T);
+boun=cell(1,T);
+pole=zeros(1,T);
+mline=cell(1,T);
+
+%Load first image
+imagename=directory(1).name;
+imagename
+im=imread(imagename);
+[imM,imN]=size(im);
+labels=zeros(imM,imN,T);
+labels2=zeros(imM,imN,T);
+
+%Segment cells
+for t=1:T % changed from T
+    basename=strcat(basename1,'_',cond,'_s',sprintf('%03d',t),'_C1');
+    out_path = strcat(temp_path, basename1, '/', cond, '/',basename,'_segments.png');
+
+    display("Scene "+num2str(t))
+
+    %Load image
+    imagename=directory(t).name;
+
+    im=imread(imagename);
+    [imM,imN]=size(im);
+
+    %De-speckle image
+    im=medfilt2(im);
+
+    %Normalize images
+    ppix=0.5;
+    im=norm16bit(im,ppix);
+
+    %Enhance contrast
+    imc=imcomplement(im);
+    if checkhist==1;
+        figure,imhist(imc),pause;
+    end
+
+    if thresh==0;
+        [imcounts,bins]=imhist(imc);
+        [imcounts,idx]=sort(imcounts);
+        bins=bins(idx);
+        thresh1=bins(end-1);
+    else
+        thresh1=thresh;
+    end
+    imc=imadjust(imc,[thresh1/65535 1],[]);   
+
+    %Find edges
+    [ed2,thresh2]=edge(imc,'canny',[],sm*sqrt(2));
+
+    %Clean image
+    cc=bwconncomp(ed2,8);
+    stats=regionprops(cc,imc,'Area','MeanIntensity');
+    idx=find([stats.Area]>minA&[stats.Area]<1e5&[stats.MeanIntensity]>IntThresh);
+    ed2=ismember(labelmatrix(cc),idx);
+
+    %Close gaps in edges by extending spurs and bridging adjacent
+    %ones.
+    despurred=bwmorph(ed2,'spur');
+    spurs=ed2-despurred;
+    [spy,spx]=find(spurs);
+    for k=1:length(spx)
+        ed2(spy(k)-1:spy(k)+1,spx(k)-1:spx(k)+1)=ed2(spy(k)-1:spy(k)+1,spx(k)-1:spx(k)+1)+rot90(ed2(spy(k)-1:spy(k)+1,spx(k)-1:spx(k)+1),2);
+        ed2(spy(k),spx(k))=1;
+    end
+    ed2=bwmorph(ed2,'bridge'); 
+
+    se=strel('disk',dr);
+    ed2=imdilate(ed2,se);
+    ed2=bwmorph(ed2,'thin',2);
+
+    %Identify cells based on size and intensity
+    ed3=~ed2;
+    ed3(1,:)=ones(1,imN);
+    ed3(end,:)=ones(1,imN);
+    ed3(:,1)=ones(imM,1);
+    ed3(:,end)=ones(imM,1);
+
+    cc=bwconncomp(ed3,4);
+    stats=regionprops(cc,imc,'Area','MeanIntensity');
+    idx=find([stats.Area]>minA&[stats.Area]<1e5&[stats.MeanIntensity]>3e4);
+    ed4=ismember(labelmatrix(cc),idx);
+
+    %Find cell areas and centroids
+    bw=bwmorph(ed4,'thicken');
+    [P,bw]=bwboundaries(bw,4,'noholes');
+    stats=regionprops(bw,'Area','Centroid','PixelIdxList');
+
+    L=bwlabel(bw);    
+    labels(:,:,t)=L;
+    labels2(:,:,t)=bw;
+
+    nc(t)=length(P);
+    areas=[stats.Area];
+    cents=cat(1,stats.Centroid);
+    acell(nc(t),t)=0;
+    acell(1:nc(t),t)=[stats.Area]';
+    centroids=cents;
+    %Calculate smooth cell contours
+    for n=1:nc(t)
+
+        rP=[P{n}(:,2),P{n}(:,1)];
+        px=[rP(1:end-1,1);rP(1:end-1,1);rP(:,1)];
+        py=[rP(1:end-1,2);rP(1:end-1,2);rP(:,2)];
+        sp=length(rP);
+        dS=sqrt(diff(px).^2+diff(py).^2);
+        S=[0 cumsum(dS)'];
+
+        px=csaps(S,px,0.05,S);
+        py=csaps(S,py,0.05,S);
+
+        px=px(sp+1:2*sp);
+        py=py(sp+1:2*sp);
+
+        px(end)=px(1);
+        py(end)=py(1);
+
+        dS=sqrt(diff(px).^2+diff(py).^2);
+        S=[0 cumsum(dS)];
+        ls=length(S);
+        DS(n,t)=S(end)/(ls-1);
+        Sn=(0:DS(n,t):S(end));
+        nx=spline(S,px,Sn);
+        ny=spline(S,py,Sn);
+
+        boun{n,t}=[nx',ny'];
+        pxls{n,t}=stats(n).PixelIdxList;
+
+    end
+    allcentroids=[allcentroids;centroids];
+    tstamp=[tstamp;ones(nc(t),1)*t];
+    cellnum=[cellnum;(1:nc(t))'];
+
+    toc
+
+end
+
+%Calculate cell length, width, etc.
+for t=1:T
+    t
+    for n=1:nc(t)    
+         X=boun{n,t}(:,1);
+         Y=boun{n,t}(:,2);   
+         [sX,~]=size(X);
+
+         %Find poles
+         [X,Y,pole(n,t)]=polefinder(X,Y);
+
+         %Create mesh
+         npts=min(pole(n,t),sX-pole(n,t)+1);
+         S=(0:DS(n,t):(sX-1)*DS(n,t));
+
+         s1=(0:S(pole(n,t))/(npts-1):S(pole(n,t)));
+         s2=(S(pole(n,t)):(S(end)-S(pole(n,t)))/(npts-1):S(end));
+         xc1=spline(S(1:pole(n,t)),X(1:pole(n,t)),s1);
+         xc2=spline(S(pole(n,t):end),X(pole(n,t):end),s2);
+         yc1=spline(S(1:pole(n,t)),Y(1:pole(n,t)),s1);
+         yc2=spline(S(pole(n,t):end),Y(pole(n,t):end),s2);
+         xc2=fliplr(xc2);
+         yc2=fliplr(yc2);
+
+         %Calculate midline
+         mline{n,t}=[(xc1+xc2)'/2,(yc1+yc2)'/2];
+         dxy=diff(mline{n,t}).^2;
+         dl=sqrt(dxy(:,1)+dxy(:,2));
+         lcell(n,t)=sum(dl);
+         % start from here for calculating surface area. Do this based 
+         % on conical sections, so that the area is calculated using
+         % the formula SA=pi*(r1+r2)*(h^2+(r2-r1)^2)^0.5
+         temp_r1 = sqrt((xc1-xc2).^2+(yc1-yc2).^2)/2;
+         temp_r=(temp_r1(1:end-1)+temp_r1(2:end))/2;
+         temp1 = (xc1(2:end)+xc2(2:end)-xc1(1:end-1)-xc2(1:end-1)).^2;
+         temp2 = (yc1(2:end)+yc2(2:end)-yc1(1:end-1)-yc2(1:end-1)).^2;
+         temp_h=0.5*(temp1+temp2).^0.5;
+         sa_segments = pi*(temp_r1(1:end-1)+temp_r1(2:end))...
+             .*(temp_h.^2+(temp_r1(1:end-1)-temp_r1(2:end)).^2).^0.5;
+         sacell(n,t)=sum(sa_segments);
+
+         %Calculate width
+         ls=[0 cumsum(dl)'];
+         [~,mpos1]=min(abs(ls/lcell(n,t)-0.25));
+         [~,mpos2]=min(abs(ls/lcell(n,t)-0.75));
+
+         widths=sqrt((xc1-xc2).^2+(yc1-yc2).^2);
+         %w(n,t)=max(widths);
+         wcell(n,t)=(widths(mpos1)+widths(mpos2))/2;
+
+    end
+end
+
+%Dimsionalize the variables
+lcell=lcell*lscale;
+wcell=wcell*lscale;
+acell=acell*lscale^2;
+sacell=sacell*lscale^2;
+
+%Throw away cells that are too short or too fat or too skinny
+lcell(lcell<minL|wcell>maxW|wcell<minW)=NaN;
+wcell(lcell<minL|wcell>maxW|wcell<minW)=NaN;
+acell(lcell<minL|wcell>maxW|wcell<minW)=NaN;
+sacell(lcell<minL|wcell>maxW|wcell<minW)=NaN;
+
+for t=1:T
+    wav(t)=mean(nonzeros(wcell(:,t)));
+    wstd(t)=std(nonzeros(wcell(:,t)));
+    wste(t)=wstd(t)./length(nonzeros(wcell(:,t)));
+    basename=strcat(basename1,'_',cond,'_s',sprintf('%03d',t),'_C1');
+    out_path = strcat(temp_path, basename1, '/', cond, '/',basename,'_segments.png');
+    out_dir = strcat(temp_path, basename1, '/', cond);
+    [row, col] = find(~isnan(lcell(:,t))); % Finding the objects that we don't 
+    
+    if vis==1
+       imagename=directory(t).name;
+        
+       im=imread(imagename);
+       t
+       h=figure;
+       imshow(im, 'InitialMagnification', imscale);
+       hold on
+       for k=1:length(row)
+           plot(boun{row(k),t}(:,1),boun{row(k),t}(:,2),'-r')
+       end
+       F = getframe(gcf);
+       [X, Map] = frame2im(F);
+%        cd(out_dir);
+       imwrite(X,out_path, "png")
+%        cd(dirname);
+      % pause
+      close all
+    end
+end
+
+lcell(lcell==0)=NaN;
+wcell(wcell==0)=NaN;
+sacell(sacell==0)=NaN;
+acell(acell==0)=NaN;
+
+cd(dirname);
+outname=strcat(basename1,'_',cond)
+% fileattrib(currdir,'+w','u');
+save(strcat(dirname,outname,'_BT_felix'))
+save(strcat(dirname,outname, '_BTlab_felix'),'labels','labels2','-v7.3')
+
 
 % cd('D:/Documents_D/Rojas_lab/data/');
 cd(temp_path);
