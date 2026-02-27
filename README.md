@@ -49,8 +49,7 @@ Examples of script workflows for different applications:
 
 ## Timepoint staining imaging (Figs. 1E, S5A):
 - timepoint_imaging_scenes_single_file.ijm (Fiji)
-- timepoint_blur_background_automated_repeat.m
-- timepoint_segmentation.m
+- timepoint_blur_background_automated_repeat_barber.m
 - cell_staining_timepoint.py
 - cell_staining_label_saving.py
 ### Run the steps above for each individual experiment. Then run the step(s) below to compile data across multiple experiments:
