@@ -8,8 +8,9 @@ Scipy 1.10.1
 Scikit-learn 1.2.2
 Scikit-image 0.20.0
 Pandas 1.5.3
+Seaborn 0.13.2
 
-The general workflow follows using FIJI scripts (*.ijm) to import and build image file structures, using MatLab to segment and track phase contrast images either for single-timepoint staining or timelapse tracking, then using Python for fluorescent quantification, single molecule tracking and plotting.
+The general workflow uses FIJI scripts (*.ijm) to import and build image file structures, uses MatLab to segment and track phase contrast images either for single-timepoint staining or timelapse tracking, and applies Python scripts for fluorescent quantification, single molecule tracking and plotting.
 
 Examples of script workflows for different applications:
 
@@ -73,7 +74,9 @@ Examples of script workflows for different applications:
 ## Lysis microscopy data
 - lysis_annotation_lysed_cells_updated.ijm
 - lysis_annotation_plain_cells_updated.ijm
-- lysis_timelapses.py
+- cell_lysis_timelapse_compiled.py
+- lysis_stat_tests.ipynb (to calculate statistical significance)
 
+## Permeability assay — see dedicated ReadMe file.
 ## PBP1-HADA colocalization
 - FDAA_PBP1_cross_correlation.ipynb
