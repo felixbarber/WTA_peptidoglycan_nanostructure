@@ -4,7 +4,8 @@
 % This script is used to process "timepoint" datasets, where within a
 % single experiment you acquire distinct fields of view (usually for different 
 % conditions). This is NOT to be used on timelapse imaging, where you track
-% the same field of view over long times.
+% the same field of view over long times. The output is saved as .mat
+% files.
 
 %The user selects ROIs (regions of interest) within the image to be blurred,
 %guided by visual aides for the cell segmentation. If you click "enter"
