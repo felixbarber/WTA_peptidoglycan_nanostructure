@@ -1,5 +1,5 @@
 
-% User Guide: Written by Felix Barber, 2/27/26
+% User Guide: Written by Felix Barber, 2/27/26.
 
 % This script is used to process "timepoint" datasets, where within a
 % single experiment you acquire distinct fields of view (usually for different 
