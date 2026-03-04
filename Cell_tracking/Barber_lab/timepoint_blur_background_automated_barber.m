@@ -28,429 +28,24 @@ tic
 
 repeat=0; % Set this to 1 if you want to repeat a specific scene
 rep=10; % Change this to the scene you want to repeat, then exit after you
+erase_pillars=0;
+
 % have done it once (it will repeat indefinitely).
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %USER INPUT
 
-basename1="/250612_bFB66_EDADA_tun_full";
-% cond="LB";
-% cond="tun_hi";
-% cond="fos";
-cond="untreated";
 
-% basename1="/250613_bFB66_EDADA_tun_full";
-% % cond="LB";
-% % cond="tun";
-% % cond="fos";
-% cond="unstained";
-% % cond="tun_van";
-% % cond="van";
-
-erase_pillars=0;
-
-% basename1="/250613_bFB66_EDADA_tun_full_rep2";
-% % cond="LB";
-% % cond="tun";
-% cond="fos";
-% % cond="tun_van";
-% % cond="van";
-% % cond="unstained";
-% erase_pillars=0;
-
-% basename1="/250616_bFB66_EDADA";
-% % cond="LB";
-% % cond="Tun";
-% % cond="fos";
-% % cond="tun_van";
-% % cond="van";
-% cond="untreated";
-% erase_pillars=0;
-
-% basename1="/250610_bFB66_tun_EDADA";
-% cond="LB_1";
-% cond="LB_2";
-% cond="tun_1";
-% cond="tun_2";
-% cond="tun_2_PI_day2";
-% cond="tun_1_PI_day2";
-% cond="LB_1_PI_day2";
-% cond="LB_2_PI_day2";
-erase_pillars=0;
-
-% basename1="/250311_width_analysis";
-% cond="bFB7";
-% cond="bFB8";
-% cond="bFB66";
-% cond="bFB87";
-% cond="bFB93";
-% cond="bFB69";
-% erase_pillars=0;
-
-% basename1="/241130_bFB69_GlpQ_antibody_pads";
-% cond="Buffer";
-% % % cond="GlpQ";
-% % cond="Control";
-% erase_pillars=0;
-
-% basename1="/241129_bFB69_GlpQ_antibody_staining_pads";
-% % cond="Buffer";
-% % cond="GlpQ";
-% cond="Control";
-% erase_pillars=0;
-
-% basename1="/241126_bFB69_GlpQ_antibody_staining_pads";
-% cond="Buffer";
-% % cond="GlpQ";
-% erase_pillars=0;
-
-% basename1="/241121_bFB69_GlpQ_antibody_staining";
-% % cond="Buffer";
-% cond="GlpQ";
-% erase_pillars=1;
-
-% basename1="/241117_bFB69_LB_WGA_control";
-% % cond="LB";
-% cond="10min";
-% erase_pillars=0;
-
-% basename1="/241115_bFB69_LB_Van_control";
-% cond="LB";
-% % cond="10min";
-% erase_pillars=0;
-
-
-% basename1="/241114_bFB69_Tun_Van_pads";
-% % cond="Tun";
-% % cond="LB";
-% cond="LB_v2";
-% erase_pillars=0;
-
-% basename1="/241114_bFB66_GlpQ_Van_pads";
-% % cond="GlpQ";
-% cond="Buffer";
-% erase_pillars=0;
-
-% basename1="/241113_bFB69_Tun_HADA";
-% % cond="LB";
-% % cond="0min";
-% % cond="5min";
-% cond="10min";
-% erase_pillars=1;
-
-% basename1="/241113_bFB69_Tun_Van_pads_v2";
-% cond="Tun";
-% % cond="LB";
-% erase_pillars=0;
-
-% basename1="/241113_bFB69_Tun_Van_pads_v1";
-% % cond="Tun";
-% cond="LB";
-% erase_pillars=0;
-
-% basename1="/241113_bFB66_GlpQ_Van_pads_v1";
-% cond="GlpQ";
-% % cond="Buffer";
-% erase_pillars=0;
-
-% basename1="/241112_bFB66_Tun_Van_pads";
-% cond="Tun";
-% % cond="LB";
-% erase_pillars=0;
-
-% basename1="/241112_bFB66_Tun_WGA_pads";
-% cond="Tun";
-% % cond="LB";
-% erase_pillars=0;
-
-% basename1="/241112_bFB66_GlpQ_Van_pads";
-% % cond="GlpQ";
-% cond="Buffer";
-% erase_pillars=0;
-
-% basename1="/241108_bFB66_Tun_Van";
-% % cond="Tun";
-% cond="LB";
-% erase_pillars=0;
-
-
-% basename1="/241108_bFB69_GlpQ_WGA_pads_azide";
-% cond="WGA";
-% % cond="Buffer";
-% erase_pillars=0;
-
-% basename1="/241105_bFB69_GlpQ_WGA_pads";
-% % cond="GlpQ";
-% cond="Buffer";
-% erase_pillars=0;
-
-
-% basename1="/241105_bFB66_Tun_Van";
-% cond="Tun";
-% % cond="LB";
-% erase_pillars=0;
-
-
-% basename1="/241025_bFB66_Tun_WGA_pads";
-% % cond="Tun";
-% cond="Tun_v1";
-% % cond="LB";
-% erase_pillars=0;
-
-% basename1="/241024_bFB69_GlpQ_WGA_pads";
-% % cond="GlpQ";
-% cond="GlpQ_v1";
-% % cond="Buffer";
-% erase_pillars=0;
-
-% basename1="/241024_bFB66_Tun_WGA_pads";
-% % cond="Tun";
-% cond="LB";
-% erase_pillars=0;
-
-
-
-% basename1="/241023_bFB69_Tun_WGA_pads";
-% % cond="Tun";
-% % cond="LB";
-% cond="LB_v2";
-% erase_pillars=0;
-
-% basename1="/241022_bFB69_Tun_WGA_pads_LB";
-% cond="Tun";
-% % cond="LB";
-% erase_pillars=0;
-
-
-% basename1="/241018_bFB69_WGA_LB_pads";
-% % cond="Tun";
-% cond="LB";
-% erase_pillars=0;
-
-
-% basename1="/241015_bFB69_Tun_WGA";
-% cond="Tun";
-% cond="LB";
-
-% 
-% basename1="/241011_bFB69_Tun_WGA";
-% % cond="Tun";
-% cond="LB";
-
-% basename1="/241008_bFB69_Tun_WGA";
-% cond="Tun";
-% % cond="LB";
-
-% basename1="/241007_bFB69_GlpQ_WGA";
-% % cond="GlpQ";
-% cond="buffer";
-
-
-
-% basename1 = '210311_pad_HADA_staining_tunicamycin';
-% % cond = '0_5ug_Tun';
-% % cond = '5ug_Tun';
-% cond = 'LB';
-
-% basename1 = '210401_pad_25min';
-% cond = '0_5ug';
-% % cond = '5ug';
-% % cond = 'LB';
-% 
-% basename1 = '210401_pad_60min_Tun';
-% % cond = '0_5_ug';
-% % cond = '5_ug';
-% cond = 'LB';
-% 
-% basename1 = '210402_pad_FB1_HADA_staining_tun';
-% % cond = '0_5ug';
-% % cond = '5ug';
-% cond = 'LB';
-% % cond = 'LB_end';
-
-% basename1 = '210402_pad_TagO_Xylose';
-% % cond = '0uM_Xylose';
-% % cond = '10mM_Xylose';
-% cond = '30mM_Xylose';
-
-% basename1= '210408_FB1_25min_Tun_pads';
-% cond='5ug';
-% % cond='0_5ug';
-% % cond='LB';
-
-% basename1= '210408_FB1_10min_Tun_pads';
-% cond='0_5ug';
-% % cond='LB';
-% 
-% basename1= '210408_FB1_5min_Tun_pads';
-% cond='0_5ug_v1';
-% % cond='0_5ug_v2';
-% % cond='LB';
-
-% 
-basename1= '210416_FB2_HADA_Staining';
-% % cond='LB';
-% % cond='5min';
-% % cond='10min';
-% % cond='15min';
-% % cond='25min';
-cond='5min_v2';
-
-% basename1= '210401_BS168_LB_HADA';
-% cond='LB';
-
-% basename1='210401_BS168_Tun_HADA_expt4';
-% cond='0_5ug_Tun';
-
-% basename1= '210429_FB1_HADA_staining_cellasic';
-% % cond='LB';
-% % cond='15min_0_5ugTun';
-% cond='25min_0_5ugTun'; % it had some trouble segmenting this one properly
-% 
-
-% basename1= '210506_FB6_inducer_loss';
-% % cond='10min';
-% % cond='25min';
-% cond='60min';
-% % cond='Xylose_induced';
-
-
-% basename1='211012_ponA_tun_HADA';
-% % cond="bFB1_0_5uM";
-% % cond="bFB1_0_25uM";
-% % cond="bFB1_0_125uM";
-% % cond="bFB1_LB";
-% % cond="bFB45_0_5uM";
-% % cond="bFB45_0_25uM";
-% % cond="bFB45_0_125uM";
-% cond="bFB45_LB";
-
-% basename1='211104_ConA_labeling';
-% % cond="bER18_GlpQPhoD";
-% % cond="bER18_PBS";
-% % cond="bFB46_GlpQPhoD";
-% % cond="bFB46_PBS";
-% cond="bER18_unlabeled";
-
-
-% basename1="211111_bFB10_ConA_Tun";
-% % cond="0min";
-% % cond="0min_v2";
-% % cond="5min";
-% % cond="10min";
-% % cond="15min";
-% % cond="20min";
-% cond="25min";
-
-% basename1="211222_bFB66_ConA_Tun";
-% cond="10min";
-% 
-% basename1="211223_bFB66_ConA_Tun";
-% cond="LB";
-% % cond="20min";
-% cond="20min_v2";
-% cond="40min";
-% cond="40min_v2";
-
-
-% basename1="220104_bFB66_Tun_HADA";
-% cond="LB";
-% cond="0min";
-% cond="5min";
-% cond="10min";
-% 
-% basename1="220104_bFB79_Tun_HADA";
-% % cond="LB";
-% % cond="0min";
-% % cond="5min";
-% % cond="10min";
-
-% basename1="220107_bFB66_ConA_primed";
-% % cond="LB";
-% % cond="LB_v2";
-% % cond="60min_Tun";
-% cond="60min_Tun_v2";
-
-% basename1="220111_bFB79_HADA_Tun";
-% % cond="LB";
-% % cond="0min";
-% % cond="5min";
-% cond="10min";
-
-% basename1="220113_bFB79_HADA_Tun";
-% % cond="LB";
-% % cond="15min";
-% % cond="5min";
-% cond="10min";
-
-% basename1="220120_bFB7_HADA_Tun";
-% % cond="LB";
-% % cond="15min";
-% % cond="5min";
-% cond="10min";
-% 
-% basename1="220202_bFB8_Tun_HADA";
-% % cond="LB";
-% % cond="15min";
-% % cond="5min";
-% cond="10min";
-
-% basename1="220207_bFB69_Tun_HADA";
-% cond="LB";
-% % cond="15min";
-% % cond="5min";
-% % cond="10min";
-
-% basename1="221205_bFB69_Bocillin_Tun";
-% % cond="LB";
-% % cond="0min";
-% % cond="5min";
-% cond="10min";
-
-% basename1="221212_bFB69_Bocillin_Tun";
-% % cond="LB";
-% % cond="0min";
-% % cond="5min";
-% % cond="10min";
-% cond="5min_v2";
-
-% basename1="221214_bFB7_HADA_Tun";
-% % cond="LB";
-% cond="0min";
-% % cond="5min";
-% % cond="10min";
-
-% basename1="/230206_bFB1_HADA_Tun";
-% % cond="LB";
-% cond="5min";
-
-% basename1="/230203_bFB108_HADA_Tun";
-% cond="LB";
-% % cond="5min";
-
-% basename1="/230203_bFB107_HADA_Tun";
-% cond="LB";
-% cond="5min";
-
-% basename1="/240126_bFB66_Tun_HADA";
-% cond="LB";
-% % cond="0min";
-% % cond="5min";
-% % cond="10min";
-
-% basename1="/240911_bFB66_FLVan";
-% cond="GlpQ";
-% % cond="GlpQ_15min";
-% % cond="PBS";
-% % cond="PBS_15min";
-
+basename1="/260211_WT_pulse_chase";
+cond="sample_4";
 
 % dirname=['D:/Documents_D/Rojas_lab/data/' basename1 '/' cond '/C1'];%Directory that the image stack is saved in.
 % dirname=strcat('D:/Documents_D/Rojas_lab/data/', basename1, '/', cond, '/C1');%Directory that the image stack is saved in.
 % out_dir=strcat('D:/Documents_D/Rojas_lab/data/', basename1, '/', cond, '/C1_blur');
 % temp_path='/Users/felixbarber/Documents/Rojas_lab/data/'
 % temp_path='/Volumes/data_ssd1/Rojas_Lab/data/'
-temp_path='/Volumes/data_ssd2/Rojas_Lab/data/'
+% temp_path='/Volumes/data_ssd2/Rojas_Lab/data/'
+temp_path='/Users/barber.527/Documents/Rojas_Lab/data';
 dirname=strcat(temp_path, basename1, '/', cond, '/C1');%Directory that the image stack is saved in.
 out_dir=strcat(temp_path, basename1, '/', cond, '/C1_blur');
 
@@ -479,7 +74,7 @@ for t=1:L
     %%%%%%%%%%%%%%%%%%%%%%%% Doing the segmentation on this image,
     % minimally modified from Rico's segmentation code.
     
-    lscale=0.0929;%%Microns per pixel.
+    lscale=0.065;%%6.5 microns per pixel.
     tscale=20;%Frame rate.
     thresh=0;%For default, enter zero.
     IntThresh=20000;%Threshold used to enhance contrast. Default:35000
@@ -525,7 +120,7 @@ for t=1:L
     %Normalize images
     ppix=0.5;
     im=norm16bit(im,ppix);
-
+    % size(im)
     %Enhance contrast
     imc=imcomplement(im);
     if checkhist==1;
@@ -698,8 +293,8 @@ for t=1:L
     
     ppix=0.5;
     im2=norm16bit(im1,ppix);
-
-    figure,imshow(im1,stretchlim(im1)*65000)
+    % size(im2)
+    figure,imshow(im1,stretchlim(im1)*65000, 'InitialMagnification', 'fit')
     % Now we automatically erase the pillars since we know the grid spacing
     % is regular. First we have to help out by aligning the orientation of
     % the grid, clicking on two pillars in the same horizontal row.
