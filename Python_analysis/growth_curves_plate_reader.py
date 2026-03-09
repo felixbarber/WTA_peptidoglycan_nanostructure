@@ -23,6 +23,7 @@ plot_pert=False # Note: if using plot_pert, you will need to also define pert_ti
 # and temp_xmax (maximum time for plotting)
 
 path = '/Users/barber.527/Documents/Rojas_Lab/data' # the base directory path
+
 expt_id = '/260306_IPTG_lytE_cwlO' # the experiment title
 
 num_rep=4 # this is the number of repeats of each condition.
