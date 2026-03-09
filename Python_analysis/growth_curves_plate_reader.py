@@ -11,138 +11,25 @@ import pickle
 # This script should be run with python 3. It assumes a file format where the expt_id is the unique identifier for a given
 # experiment, and that this is conserved for all the files within the folder of the same name.
 
-# Note: data should be saved in UTF-8 csv format. Labels should be in regular csv format.
+#############
+# NOTE: data should be saved in UTF-8 csv format. Labels should be in regular csv format!
+#############
 
 data_labels = []
-plot_pert = False
+
 max_time=400 # Maximum time for OD saturation plot.
-# path = '/mnt/d/Documents_D/Rojas_lab/data' # the base directory path
-# path = '/Users/felixbarber/Documents/Rojas_lab/data' # the base directory path
-path = '/Volumes/data_ssd1/Rojas_Lab/data' # the base directory path
-# expt_id = '/211007_ponA_Tunicamycin'
-# expt_id = '/211012_ponA_Tunicamycin'
-# expt_id = '/211014_ponA_Tunicamycin'
-# num_rep=4 # this is the number of repeats of each condition.
-# # expt_id = '/211105_MC_growth_assay'
-# # expt_id = '/211117_MC_growth_curves'
-# # expt_id = '/211117_LB_MC_growth_curves'
-# # expt_id = '/220106_dacA_tunicamycin_assay'
-# # expt_id = '/220107_PhoD_induction_IPTG' # the experiment title
-# expt_id = '/220302_bFB69_bFB87_Mg_assay' # the experiment title
-# num_rep=3 # this is the number of repeats of each condition.
-# expt_id = '/220706_bFB2_bFB83_growth_curves' # the experiment title
-# num_rep=4 # this is the number of repeats of each condition.
-# expt_id = '/220615_DPonA_WT_GC' # the experiment title
-# num_rep=4 # this is the number of repeats of each condition.
-# expt_id = '/220729_growth_curves_evo' # the experiment title
-# expt_id = '/220808_bFB66_Tun_control' # the experiment title
-# expt_id = '/220811_evo_tun' # the experiment title
-# expt_id = '/220827_BGSC_mutants_0.175Tuni_1' # the experiment title
-# expt_id = '/220828_BGSC_mutants_0.175Tuni_2' # the experiment title
-# expt_id = '/220831_BGSC_mutants_0.175Tuni_3' # the experiment title
-# expt_id = '/220908_BGSC_mutants_0.175Tuni_4' # the experiment title
-# expt_id = '/220816_Tuni_growth_curves' # the experiment title
-# num_rep=3 # this is the number of repeats of each condition.
-# expt_id = '/221102_Po    nA_TPase_Tun_sensitivity' # the experiment title
-# num_rep=4 # this is the number of repeats of each condition.
-expt_id = '/221105_PonA_TPase_Tun_sensitivity' # the experiment title
-# num_rep=4 # this is the number of repeats of each condition.
-# expt_id = '/221108_bFB66_Tun_Amp' # the experiment title
-# expt_id = '/221109_bFB66_Amp_Tun' # the experiment title
-# expt_id = '/221110_bFB66_Tun_temp_stitch' # the experiment title
-# plot_pert = True
-# pert_time = 7778.9/60.0 
-# pert_label = r'$0.5\mu g/mL$ Tunicamycin added'
-# temp_xmax=1000 # time in mins to cutoff plots
-# expt_id = '/221116_bFB69_screen_Tun_sensitivity' # the experiment title
-# expt_id = '/221121_bFB66_Tun_discr_v1' # the experiment title
-# expt_id = '/221121_bFB66_Tun_discr_v2' # the experiment title
-# plot_pert = True
-# pert_time = 0
-# pert_label = r'$0.5\mu g/mL$ Tunicamycin added'
-# temp_xmax=400
-# num_rep=3 # this is the number of repeats of each condition.
-# expt_id = '/230324_hydrolase_Tun_growth_curves'
-# expt_id = '/230404_Tun_lysis_assay'
-# expt_id = '/230719_tun_megako_growth_curves'
-# expt_id = '/231208_Tuni_growth_curves'
-# expt_id = '/240203_bFB205_Tun_growth_curves'
-# expt_id = '/240411_degron_test' # the experiment title
-# expt_id = '/240512_degron_test_2' # the experiment title
-# expt_id = '/240606_degron_test' # the experiment title
-# expt_id = '/240612_degron_test_fresh_rapamycin' # the experiment title
-# expt_id = '/240613_degron_tester_graduated_induction' # the experiment title
-# expt_id = '/240617_degron_test_low_IPTG' # the experiment title
-# expt_id = '/240702_Tun_sensitivity' # the experiment title
-# expt_id = '/240708_degron_test_S750' # the experiment title
-# expt_id = '/240709_degron_test_S750_2' # the experiment title
-# expt_id = '/240723_bFB66_Tun_sensitivity' # the experiment title
-# path = '/Volumes/data_ssd2/Rojas_Lab/data' # the base directory path
-# expt_id = '/241126_tunicamycin_control_xylose' # the experiment title
-# expt_id = '/241202_tunicamycin_control_xylose_v2' # the experiment title
-# expt_id = '/250214_hydrolysis_tun_sensitivity' # the experiment title
-# expt_id = '/250219_lytF_cwlS_tun_sens' # the experiment title
-# expt_id = '/250221_rsgI_tun_sens' # the experiment title
-# expt_id = '/250227_bFB291_IPTG' # the experiment title
-# expt_id = '/250228_bFB291_IPTG' # the experiment title
-# expt_id = '/250305_ponA_spac' # the experiment title
-# expt_id = '/250307_bFB276_IPTG' # the experiment title
-# expt_id = '/250308_bFB6_Xylose_induction' # the experiment title
-# expt_id = '/250312_cwlO_induction' # the experiment title
-# expt_id = '/250312_bFB291_lysozyme_lysis_assay' # the experiment title
-# expt_id = '/250313_bFB291_lysozyme_lysis_assay' # the experiment title
-# expt_id = '/250320_lysis' # the experiment title
-# expt_id = '/250324_lysis_assay' # the experiment title
-# expt_id = '/250325_lysis_assay' # the experiment title
-# max_time=400 # Maximum time for OD saturation plot.
-# expt_id = '/250331_Mg_growth_dynamics' # the experiment title
-# expt_id = '/250402_Mg_tun_dynamics' # the experiment title
-# expt_id = '/250403_lysis_assay' # the experiment title
-# expt_id = '/250404_lysis_assay' # the experiment title
-# expt_id = '/250407_lysis_assay' # the experiment title
-# expt_id = '/250408_lysis_assay_v2' # the experiment title
-# expt_id = '/250408_lysis_assay_v2_rep2' # the experiment title
-# expt_id = '/250411_sigI_tunicamycin_sensitivity' # the experiment title
-# expt_id = '/250415_sigI_tunicamycin_assay' # the experiment title
-# expt_id = '/250418_IPTG_Mg_Sensitivity' # the experiment title
-# expt_id = '/250418_bFB291_IPTG_Mg' # the experiment title
-# expt_id = '/250421_Tun_Mg_Sensitivity' # the experiment title
-# expt_id = '/250422_dacA_tun_Mg' # the experiment title
-# num_rep=4 # this is the number of repeats of each condition.
-# expt_id = '/250424_az_sens' # the experiment title
-# num_rep=2 # this is the number of repeats of each condition.
-# expt_id = '/250425_az_sens' # the experiment title
-# expt_id = '/250428_az_sens' # the experiment title
-# expt_id = '/250429_az_sens' # the experiment title
-# expt_id = '/250430_az_sens' # the experiment title
-# num_rep=3 # this is the number of repeats of each condition.
-# expt_id = '/250507_bFB66_s750_tun' # the experiment title
-# expt_id = '/250509_bFB66_s750' # the experiment title
-# expt_id = '/250512_bFB66_s750_tun' # the experiment title
-# expt_id = '/250516_bFB66_s750_tun_sensitivity' # the experiment title
-# expt_id = '/250517_s750_tun_ponA' # the experiment title
-# expt_id = '/250519_s750_tun_ponA' # the experiment title
-# expt_id = '/250520_s750_tun_ponA' # the experiment title
-# expt_id = '/250521_s750_tun_ponA' # the experiment title
-# expt_id = '/250522_s750_tun_ponA' # the experiment title
-# expt_id = '/250528_ponA_TGase' # the experiment title
-# expt_id = '/250529_ponA_IDR_tun' # the experiment title
-# expt_id = '/250530_ponA_IDR_tunicamycin' # the experiment title
-# expt_id = '/250609_xyl_Mg' # the experiment title
-# expt_id = '/250612_xyl_Mg' # the experiment title
-# expt_id = '/250613_xyl_Mg' # the experiment title
-# expt_id = '/250617_ponA_IDR_tun' # the experiment title
-# expt_id = '/250618_xyl_Mg' # the experiment title
-# expt_id = '/250618_s750_xyl_Mg' # the experiment title
+
+plot_pert=False # Note: if using plot_pert, you will need to also define pert_time (in minutes), pert_label (string),
+# and temp_xmax (maximum time for plotting)
+
+path = '/Users/barber.527/Documents/Rojas_Lab/data' # the base directory path
+expt_id = '/260306_IPTG_lytE_cwlO' # the experiment title
 
 num_rep=4 # this is the number of repeats of each condition.
-
-plot_pert=False
 
 # max_time=None
 
 num_groups=[0,30] # num conds + 1 # the number of conditions to be plotted + 1
-# num_rep=3
 
 # Note that this labels file should be filled as follows: blank corresponds to the blank wells (there should be num_rep of these), empty corresponds to empty wells, 
 # and each unique condition should be labeled with its own name, that is the same for each of the repeats of that condition
@@ -331,7 +218,7 @@ for conds_set in groupings:
     if plot_pert:
         ax=plt.gca()
         plt.vlines(pert_time,ymin=ax.get_ylim()[0],ymax=ax.get_ylim()[1],label=pert_label, color='k', linestyle='--')
-        plt.xlim(xmin=0,xmax=300)
+        plt.xlim(xmin=0,xmax=temp_xmax)
     ########
     plt.legend(loc=[1.02,0.0])
     fig.savefig('./outputs'+expt_id+expt_id+'_broad_lim_range_{0}.png'.format(counter),bbox_inches='tight',dpi=300)
@@ -513,48 +400,6 @@ for conds_set in groupings:
     fig.savefig('./outputs'+expt_id+expt_id+'_gr_{0}.png'.format(counter),bbox_inches='tight',dpi=300)
     counter+=1
     del fig
-
-# # Now we plot the actual growth rates. 
-# growth_conds=list(set(conds))
-# df=pd.DataFrame(columns=['Growth Rate', 'Condition']) # This pandas dataframe will give the maximal growth rate of each condition
-# for conds_set in groupings:
-    # fig=plt.figure(figsize=[10,5])
-    # temp_ind_tracker=0
-    # for cond in conds[1:]:
-        # if not cond in ['Empty']:
-            # data_gr=np.zeros([num_rep,len(tvec_gr)])
-            # for ind in range(1,num_rep+1):
-                # name=cond+str(ind)
-                # lab=conditions_inv[name]
-                # ind1 = np.nonzero([data[i0][0]==lab for i0 in range(len(data))])[0][0]
-                # yv=np.asarray([float(data[ind1][i0]) for i0 in range(1,len(row))])
-                # yv-=blank_av
-                # # here is where we calculate the growth rate at each timepoint by looking at some time window to either side
-                # # and doing a linear regression 
-                # for i0 in range(window,len(tvec)-window):
-                    # temp=scipy.stats.linregress(tvec[i0-window:i0+window+1]/60.0,np.log(yv[i0-window:i0+window+1]))[0]
-                    # data_gr[ind-1,i0-window]=temp
-                # temp_df=pd.DataFrame([[np.nanmax(data_gr[ind-1,:]),name[:-1]]],columns=['Growth Rate', 'Condition'])
-                # df=df.append(temp_df)
-            # plt.plot(tvec_gr/60.0,np.median(data_gr,axis=0),label=cond,linestyle=linestyles[np.mod(temp_ind_tracker,len(linestyles))])
-            # plt.fill_between(tvec_gr/60.0,(np.median(data_gr,axis=0)-np.std(data_gr,axis=0)),(np.median(data_gr,axis=0)+np.std(data_gr,axis=0)),alpha=0.2)
-            # temp_ind_tracker+=1
-            # if temp_ind_tracker==19:
-                # temp_ind_tracker+=1 # This ensures that we don't recycle the same colors 
-    # plt.ylabel('Growth rate (min-1)')
-    # plt.xlabel('Time (min)')
-    # ########
-    # if plot_pert:
-        # ax=plt.gca()
-        # plt.vlines(pert_time,ymin=ax.get_ylim()[0],ymax=ax.get_ylim()[1],label=pert_label, color='k', linestyle='--')
-        # plt.xlim(xmin=0,xmax=300)
-    # ########
-    # plt.legend(loc=[1.02,0.0])
-    # plt.show()
-    # fig.savefig('./outputs'+expt_id+expt_id+'_gr_lim_range{0}.png'.format(counter),bbox_inches='tight',dpi=300)
-    # counter+=1
-    # del fig
-
 
 # Plotting bar graphs of the different maximal growth rates
 
