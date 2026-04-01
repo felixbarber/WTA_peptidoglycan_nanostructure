@@ -5,6 +5,7 @@ import matplotlib.pyplot as plt
 import skimage
 from skimage import io
 import seaborn as sns
+import scipy
 from scipy import stats
 from skimage import feature
 from skimage import measure
@@ -17,12 +18,11 @@ from matplotlib import cm
 import pickle
 from numpy.matlib import repmat
 import os
-import scipy
 import pandas as pd
 import statsmodels.stats.api as sms
 
 # Note this should be run with python 2!
-color_ind=None
+
 class trace(object):  # we will define an object called a trace for each MreB filament.
     trackCount = 0  # total number of tracks
 
@@ -42,115 +42,28 @@ class trace(object):  # we will define an object called a trace for each MreB fi
 
 # path = '/Volumes/easystore_hdd/Rojas_Lab/data'
 # path = '/Users/felixbarber/Documents/Rojas_Lab/data'
-path='/Volumes/data_ssd1/Rojas_Lab/data/'
+# path='/Volumes/data_ssd1/Rojas_Lab/data/'
 num_rep=2
+color_ind=None
 err_style1='se' # default error style
 
-# expt_ids = ['/211220_bFB22_Tun_TIRF','/250508_bFB22_tun_TIRF', '/250512_bFB22_tun_TIRF']
-# lab = 'lytE'
-# pert='Tunicamycin addition'
-# path='/Volumes/data_ssd2/Rojas_Lab/data/'
-# num_rep=2
-
-# expt_ids = ['/250617_bFB2_s750_tun_TIRF', '/250618_bFB2_s750_tun_TIRF']
-# lab = 's750'
-# pert='Tunicamycin addition'
-# path='/Volumes/data_ssd2/Rojas_Lab/data/'
-# num_rep=1
-
-
-
-# expt_ids = ['/211217_bFB26_Tun_TIRF', '/250509_bFB26_tun_TIRF', '/250514_bFB26_tun_TIRF', '/250516_bFB26_tun_TIRF']
-# expt_ids = ['/250509_bFB26_tun_TIRF', '/250514_bFB26_tun_TIRF', '/250516_bFB26_tun_TIRF']
-# lab = 'cwlO'
-# pert='Tunicamycin addition'
-# path='/Volumes/data_ssd2/Rojas_Lab/data/'
-# num_rep=2
-
-# expt_ids = ['/211201_bFB2_Tun_TIRF', '/211217_bFB26_Tun_TIRF', '/211220_bFB22_Tun_TIRF']
-# lab = 'cwlO_lytE_WT_comp'
-# pert='Tunicamycin addition'
-# path='/Volumes/data_ssd2/Rojas_Lab/data/'
-# num_rep=0
-# color_ind=0
-
-# expt_ids = ['/241130_bFB95_Tun_TIRF']
-# lab='ponA_lytE_tun_treatment'
-# pert='0.5ug/mL Tunicamycin'
-# path='/Volumes/data_ssd2/Rojas_Lab/data/'
-# num_rep=0
-
-# expt_ids = ['/241128_bFB2_025_Tun_TIRF']
-# lab='025ug_tun_treatment'
-# pert='0.25ug/mL Tunicamycin'
-# path='/Volumes/data_ssd2/Rojas_Lab/data/'
-# num_rep=0
-
-# expt_ids = ['/241119_bFB2_Tun_peptide_TIRF']
-# lab='tun_peptide_treatment'
-# pert='Tunicamycin added'
-# path='/Volumes/data_ssd1/Rojas_Lab/data/'
-# num_rep=0
-
-# expt_ids = ['/241118_bFB2_peptide_TIRF']
-# lab='peptide_treatment'
-# pert='Peptides added'
-# path='/Volumes/data_ssd1/Rojas_Lab/data/'
-# num_rep=0
+expt_ids = ['/240806_bFB2_PBS_TIRF', '/210929_bFB2_PBS_recovery_TIRF', '/211014_bFB10_PBS_recov_TIRF']
+lab='PBS_treatment'
+pert='PBS added'
+path='/Volumes/data_ssd2/Rojas_Lab/data/'
+num_rep=2
+tpert=[0.0,15.0]
 
 # expt_ids = ['/240729_bFB2_25uM_GlpQ_recovery_TIRF', '/240801_bFB2_25uMGlpQ_TIRF']
 # lab='GlpQ_treatment'
 # pert='GlpQ added'
 # path='/Volumes/data_ssd2/Rojas_Lab/data/'
 # num_rep=1
+# tpert=[0.0,15.0]
 # err_style1=None
 
-# expt_ids = ['/210719_FB12_xylose_depletion_TIRF', '/240122_bFB12_TIRF_Xylose_depletion', '/240111_bFB12_TIRF_Xylose_depletion_consolidated', '/231120_bFB12_Xylose_depletion_TIRF_consolidated']
-# expt_ids = ['/240122_bFB12_TIRF_Xylose_depletion', '/240111_bFB12_TIRF_Xylose_depletion_consolidated', '/241204_bFB12_Xylose_depletion_TIRF']
-# lab='inductor_depletion'
-# pert='Xylose depletion'
-# num_rep=2
 
-# expt_ids = ['/240126_bFB10_Tun_TIRF', '/240209_bFB10_Tun_TIRF', '/220211_bFB10_Tun_TIRF']
-# # expt_ids = ['/240126_bFB10_Tun_TIRF', '/240209_bFB10_Tun_TIRF']
-# lab='fluor_type'
-# pert='Tunicamycin addition'
-# num_rep=2
-
-# expt_ids = ['/220309_bFB2_Tun_TIRF', '/240124_bFB2_Tun_TIRF', '/240223_bFB2_Tun_TIRF', '/240410_bFB2_Tun_TIRF']
-# lab='mbl_paper'
-# pert='Tunicamycin addition'
-# num_rep=2
-#
-# expt_ids = ['/220222_bFB83_Tun_TIRF_Mg', '/230221_bFB83_Tun_TIRF', '/240730_bFB83_10mMMgCl2_Tun_TIRF']
-# lab = 'ponA'
-# pert='Tunicamycin addition'
-# color_ind=0
-# num_rep=2
-
-# expt_ids = ['/220309_bFB2_Tun_TIRF', '/211220_bFB22_Tun_TIRF', '/211217_bFB26_Tun_TIRF', '/220222_bFB83_Tun_TIRF_Mg']
-# lab='mutant_type'
-
-# expt_ids = ['/220309_bFB2_Tun_TIRF', '/211220_bFB22_Tun_TIRF', '/211217_bFB26_Tun_TIRF']
-# lab='WT_cwlO_lytE'
-
-# expt_ids = ['/211201_bFB2_Tun_TIRF', '/220309_bFB2_Tun_TIRF', '/211220_bFB22_Tun_TIRF', '/211217_bFB26_Tun_TIRF', '/220222_bFB83_Tun_TIRF_Mg', '/211118_bFB26_Tun_TIRF']
-# lab='mutant_type_repeats'
-
-# expt_ids = ['/231120_bFB12_Xylose_depletion_TIRF', '/240111_bFB12_TIRF_Xylose_depletion', '/240122_bFB12_TIRF_Xylose_depletion']
-# lab='inducer_depletion_recent'
-# pert='Xylose depletion'
-
-
-# expt_ids = ['/221103_bFB2_Tun_TIRF_priming']
-# lab='WT_mbl_long_time'
-
-# expt_ids = ['/221111_bFB66_Tun_TIRF_long']
-# lab='WT_mbl_long_221111'
-
-# expt_ids = ['/211201_bFB2_Tun_TIRF', '/220309_bFB2_Tun_TIRF', '/220222_bFB83_Tun_TIRF_Mg', '/230221_bFB83_Tun_TIRF']
-# lab = 'WT_ponA'
-
+linestyles=['-', '-.', '--']
 
 # This part loads the data for all the experiments listed above
 out_path='/Users/barber.527/Documents/GitHub/Rojas_lab_drafts/outputs/compiled_data/rod_complex_plots/'
@@ -293,7 +206,8 @@ else:
     sns.scatterplot(data=df2, x='Time', y='mean', alpha=0.5)
 # sns.pointplot(x='Time', y='Percent_act', estimator=np.mean, data=df[df.tmp==1], capsize=0.1,join=1, markers='.')
 ax = plt.gca()
-plt.vlines(0, ymin=ax.get_ylim()[0], ymax=ax.get_ylim()[1], linestyle='-', colors='k', lw=0.5)
+for ind in range(len(tpert)):
+    plt.vlines(tpert[ind], ymin=ax.get_ylim()[0], ymax=ax.get_ylim()[1], linestyle=linestyles[ind], colors='k', lw=1.0)
 # plt.ylabel('Processive filaments (%)')
 plt.xlabel('Time (min)')
 fig.savefig(out_path+lab+'_activity_percent.pdf', bbox_inches='tight')
@@ -311,7 +225,8 @@ sns.scatterplot(data=df2,x='Time',y='mean',alpha=0.5)
 ax = plt.gca()
 # plt.ylim(ymax=1.15, ymin=0.85)
 plt.ylim(ymax=0.05, ymin=0.025)
-plt.vlines(0, ymin=ax.get_ylim()[0], ymax=ax.get_ylim()[1], linestyle='-', colors='k', lw=0.5)
+for ind in range(len(tpert)):
+    plt.vlines(tpert[ind], ymin=ax.get_ylim()[0], ymax=ax.get_ylim()[1], linestyle=linestyles[ind], colors='k', lw=1.0)
 plt.ylabel(r'Speed ($\mu$m/s)')
 plt.xlabel('Time (min)')
 fig.savefig(out_path+lab+'_ballistic_speed_cumulative.pdf', bbox_inches='tight')
@@ -328,8 +243,8 @@ sns.scatterplot(data=df2,x='Time',y='mean',alpha=0.5)
 # sns.pointplot(x='Time', y='Percent_act', estimator=np.mean, data=df[df.tmp==1], capsize=0.1,join=1, markers='.')
 ax = plt.gca()
 # plt.ylim(ymax=0.9, ymin=0.6)
-plt.ylim(ymax=0.03, ymin=0.005)
-plt.vlines(0, ymin=ax.get_ylim()[0], ymax=ax.get_ylim()[1], linestyle='-', colors='k', lw=0.5)
+for ind in range(len(tpert)):
+    plt.vlines(tpert[ind], ymin=ax.get_ylim()[0], ymax=ax.get_ylim()[1], linestyle=linestyles[ind], colors='k', lw=1.0)
 plt.ylabel(r'Speed ($\mu$m/s)')
 plt.xlabel('Time (min)')
 fig.savefig(out_path+lab+'_general_speed_cumulative.pdf', bbox_inches='tight')
@@ -348,7 +263,8 @@ sns.lineplot(x='Time',y='Density ball.',data=df2,err_style='bars',errorbar=err_s
 sns.scatterplot(data=df2,x='Time',y='Density ball.',alpha=0.5)
 # sns.pointplot(x='Time', y='Percent_act', estimator=np.mean, data=df[df.tmp==1], capsize=0.1,join=1, markers='.')
 ax = plt.gca()
-plt.vlines(0, ymin=ax.get_ylim()[0], ymax=ax.get_ylim()[1], linestyle='-', colors='k', lw=0.5)
+for ind in range(len(tpert)):
+    plt.vlines(tpert[ind], ymin=ax.get_ylim()[0], ymax=ax.get_ylim()[1], linestyle=linestyles[ind], colors='k', lw=1.0)
 plt.ylabel(r'Density ($1/\mu m^2$)')
 plt.xlabel('Time (min)')
 fig.savefig(out_path+lab+'_ballistic_density_cumulative.pdf', bbox_inches='tight')
