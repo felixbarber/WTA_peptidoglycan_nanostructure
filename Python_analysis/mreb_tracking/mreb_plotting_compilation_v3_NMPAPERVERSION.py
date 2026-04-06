@@ -86,39 +86,47 @@ out_path='/Users/barber.527/Documents/GitHub/Rojas_lab_drafts/outputs/compiled_d
 col = ['Condition', 'Time', 'Activity', 'Speed',]
 df = pd.DataFrame()
 lscale = 0.0929
-for expt_id in expt_ids:
-    # first we must open the relevant parameters for this experiment
-    temp_path = path+expt_id+expt_id+'_condition_parameters.pkl'
-    with open(temp_path, 'rb') as input:
-        expt_vals=pickle.load(input)
-    # print(expt_vals)
-    data=[]
-    print(expt_id)
-    # Now we load the data for each timepoint (cond) associated with a given experiment
-    for cond in expt_vals['conds']:
-        for scene_num in range(1,expt_vals['scene_nums'][expt_vals['conds'].index(cond)]+1):
-            temp_data = []
-            temp_path = path+expt_id+'/'+cond+expt_id+'_'+cond+'_s{0}_crop'.format(str(scene_num).zfill(3))
-            background = io.imread(temp_path+'_background.tif')
-            cell_area=np.sum(background==0)*lscale**2  # this gives the cell area
-            with open(temp_path+'_tracked_filt.pkl', 'rb') as input:
-                temp_data+=pickle.load(input)
-            temp_df=pd.DataFrame(columns=col)
-            temp_df['Activity']=[obj.lin for obj in temp_data]
-            temp_df['Activity ball.'] = [obj.ballistic for obj in temp_data]
-            temp_df['Density'] = [obj.lin/cell_area for obj in temp_data]
-            temp_df['Density ball.'] = [obj.ballistic / cell_area for obj in temp_data]
-            temp_df['Speed']=[obj.speed_fit[0] for obj in temp_data]
-            temp_df['ballistic'] = [obj.ballistic for obj in temp_data]
-            temp_df['full_label'] = expt_vals['condition'][0]
-            temp_df['Condition'] = expt_vals['condition'][0]
-            temp_df['Time'] = expt_vals['timepoints'][expt_vals['conds'].index(cond)]
-            temp_df['Scene'] = scene_num
-            temp_df['Expt'] = expt_id
-            df=df.append(temp_df)
-df['Speed ball.']=df['Speed']*df['ballistic']
-df['Percent_act']=df['Activity ball.']*100.0
-# exit()
+out_name=out_path+lab+'_public_share.pkl'
+if not os.path.exists(out_name):
+    print('loading data and saving for the first time')
+    for expt_id in expt_ids:
+        # first we must open the relevant parameters for this experiment
+        temp_path = path+expt_id+expt_id+'_condition_parameters.pkl'
+        with open(temp_path, 'rb') as input:
+            expt_vals=pickle.load(input)
+        # print(expt_vals)
+        data=[]
+        print(expt_id)
+        # Now we load the data for each timepoint (cond) associated with a given experiment
+        for cond in expt_vals['conds']:
+            for scene_num in range(1,expt_vals['scene_nums'][expt_vals['conds'].index(cond)]+1):
+                temp_data = []
+                temp_path = path+expt_id+'/'+cond+expt_id+'_'+cond+'_s{0}_crop'.format(str(scene_num).zfill(3))
+                background = io.imread(temp_path+'_background.tif')
+                cell_area=np.sum(background==0)*lscale**2  # this gives the cell area
+                with open(temp_path+'_tracked_filt.pkl', 'rb') as input:
+                    temp_data+=pickle.load(input)
+                temp_df=pd.DataFrame(columns=col)
+                temp_df['Activity']=[obj.lin for obj in temp_data]
+                temp_df['Activity ball.'] = [obj.ballistic for obj in temp_data]
+                temp_df['Density'] = [obj.lin/cell_area for obj in temp_data]
+                temp_df['Density ball.'] = [obj.ballistic / cell_area for obj in temp_data]
+                temp_df['Speed']=[obj.speed_fit[0] for obj in temp_data]
+                temp_df['ballistic'] = [obj.ballistic for obj in temp_data]
+                temp_df['full_label'] = expt_vals['condition'][0]
+                temp_df['Condition'] = expt_vals['condition'][0]
+                temp_df['Time'] = expt_vals['timepoints'][expt_vals['conds'].index(cond)]
+                temp_df['Scene'] = scene_num
+                temp_df['Expt'] = expt_id
+                df=df.append(temp_df)
+    df['Speed ball.']=df['Speed']*df['ballistic']
+    df['Percent_act']=df['Activity ball.']*100.0
+    # exit()
+    with open(out_name, 'wb') as output:  # Overwrites any existing file.
+        pickle.dump(df, output, pickle.HIGHEST_PROTOCOL)
+else:
+    df = pd.read_pickle(out_name)
+    print('loading pre-prepared data')
 
 sns.set(font_scale=1.5)
 sns.set_style("white")
