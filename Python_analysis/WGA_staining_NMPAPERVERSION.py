@@ -33,35 +33,39 @@ plot_points=False
 scene_plotting=11 # number of scenes +1 that we will plot for each replicate, to avoid photobleaching
 
 output_dir = './outputs/compiled_data/staining_plots/'
-# path = '/mnt/d/Documents_D/Rojas_lab/data/'
-# path = '/Users/felixbarber/Documents/Rojas_Lab/data'
-# path = '/Volumes/easystore_hdd/Rojas_Lab/data'
-# path = '/Users/felixbarber/Documents/GitHub/Rojas_lab_drafts/outputs'
 path = '/Volumes/data_ssd2/Rojas_Lab/data/'
 
 # This assumes that cell_staining_timepoint.py has already been run
 # df = pd.DataFrame()
-for ind in range(len(expt_ids)):
-    temp_df1 = pd.DataFrame()
-    expt_id =expt_ids[ind]
-    temp_path = path + expt_id + expt_id + '_condition_parameters.pkl'
-    with open(temp_path, 'rb') as input:
-        expt_vals = pickle.load(input)
-    data_dir = "./outputs" + expt_id
-    temp_df = pd.read_pickle(data_dir + expt_id)
-    temp_df['Celltype'] = expt_vals['Celltype']
-    temp_df['expt'] = expt_vals['expt']
-    temp_df['Date'] = expt_vals['Date']
-    temp_df['Plot'] = [obj in plotting_conds for obj in temp_df.Condition]
-    temp_df = temp_df[temp_df.Plot == 1]
-    temp_df = temp_df[temp_df['Average outline ' + label] > thresh]  # filtering out debris that isn't fluorescent.
-    temp_df['Normalized Average outline ' + label] = temp_df['Average outline ' + label] / \
-                                                     temp_df[temp_df.Condition == norm_cond][
-                                                         'Average outline ' + label].mean()
-    # temp_df['Conditions']=expt_vals['Conditions']
-    if ind == 0:
-        df = pd.DataFrame(columns=temp_df.columns)
-    df = df.append(temp_df)
+out_name=output_dir+group_id+'_public_share.pkl'
+if not os.path.exists(out_name):
+    print('loading data and saving for the first time')
+    for ind in range(len(expt_ids)):
+        temp_df1 = pd.DataFrame()
+        expt_id =expt_ids[ind]
+        temp_path = path + expt_id + expt_id + '_condition_parameters.pkl'
+        with open(temp_path, 'rb') as input:
+            expt_vals = pickle.load(input)
+        data_dir = "./outputs" + expt_id
+        temp_df = pd.read_pickle(data_dir + expt_id)
+        temp_df['Celltype'] = expt_vals['Celltype']
+        temp_df['expt'] = expt_vals['expt']
+        temp_df['Date'] = expt_vals['Date']
+        temp_df['Plot'] = [obj in plotting_conds for obj in temp_df.Condition]
+        temp_df = temp_df[temp_df.Plot == 1]
+        temp_df = temp_df[temp_df['Average outline ' + label] > thresh]  # filtering out debris that isn't fluorescent.
+        temp_df['Normalized Average outline ' + label] = temp_df['Average outline ' + label] / \
+                                                         temp_df[temp_df.Condition == norm_cond][
+                                                             'Average outline ' + label].mean()
+        # temp_df['Conditions']=expt_vals['Conditions']
+        if ind == 0:
+            df = pd.DataFrame(columns=temp_df.columns)
+        df = df.append(temp_df)
+    with open(out_name, 'wb') as output:  # Overwrites any existing file.
+        pickle.dump(df, output, pickle.HIGHEST_PROTOCOL)
+else:
+    df = pd.read_pickle(out_name)
+    print('loading pre-prepared data')
 
 
 # Now we plot the results and save the figures
